@@ -1,0 +1,23 @@
+
+type Query {
+    obtenerTrabajos: [Job!]
+    trabajoPorId(id: ID!): Job
+}
+
+type Company{
+    id: ID!
+    name: String!
+    description: String
+}
+
+"""
+Represent a job type
+"""
+type Job {
+    """This is the id of the job"""
+    id: ID!
+    date: String!
+    title: String!
+    company: Company!
+    description: String
+}
