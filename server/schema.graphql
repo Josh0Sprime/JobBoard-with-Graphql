@@ -2,12 +2,14 @@
 type Query {
     obtenerTrabajos: [Job!]
     trabajoPorId(id: ID!): Job
+    companyPorId(id: ID!): Company
 }
 
 type Company{
     id: ID!
     name: String!
     description: String
+    jobs: [Job!]
 }
 
 """
