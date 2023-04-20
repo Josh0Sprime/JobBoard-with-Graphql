@@ -7,8 +7,8 @@ export async function getJobs() {
   return await getJobTable().select();
 }
 
-export async function getJobsByCompany(companyId){
-  return await getJobTable().select().where({companyId});
+export async function getJobsByCompany(companyId) {
+  return await getJobTable().select().where({ companyId });
 }
 
 export async function getJob(id) {

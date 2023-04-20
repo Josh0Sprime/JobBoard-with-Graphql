@@ -1,59 +1,59 @@
-import { GraphQLClient, gql } from 'graphql-request'
+import { GraphQLClient, gql } from 'graphql-request';
 
-const cliente = new GraphQLClient('http://localhost:9000/graphql');
+const client = new GraphQLClient('http://localhost:9000/graphql');
 
-export async function getJobs(){
-    const query = gql`
-        query {
-            obtenerTrabajos{
-                id
-                date
-                title
-                company{
-                    id
-                    name
-                }
-            }
+export async function getCompany(id) {
+  const query = gql`
+    query CompanyById($id: ID!) {
+      company(id: $id) {
+        id
+        name
+        description
+        jobs {
+          id
+          date
+          title
         }
-
-    `;
-
-    const { obtenerTrabajos } = await cliente.request(query);
-    return obtenerTrabajos;
+      }
+    }
+  `;
+  const { company } = await client.request(query, { id });
+  return company;
 }
 
-export async function getJob(id){
-    const query = gql`
-        query JobById($id: ID!){
-            trabajoPorId(id: $id){
-                id
-                date
-                title
-                company{
-                    id
-                    name
-                }
-                description
-            }
+export async function getJob(id) {
+  const query = gql`
+    query JobById($id: ID!) {
+      job(id: $id) {
+        id
+        date
+        title
+        company {
+          id
+          name
         }
-    
-    `;
-
-    const { trabajoPorId } = await cliente.request(query, { id });
-    return trabajoPorId;
+        description
+      }
+    }
+  `;
+  const { job } = await client.request(query, { id });
+  return job;
 }
 
-export async function getCompany(id){
-    const query = gql`
-        query companyPorId($id: ID!){
-            companyPorId(id: $id){
-                name
-                description
-            }
+export async function getJobs() {
+  const query = gql`
+    query {
+      jobs {
+        id
+        date
+        title
+        company {
+          id
+          name
         }
-
-    `;
-
-    const { companyPorId } = await cliente.request(query, { id });
-    return companyPorId;
+      }
+    }
+  `;
+  const { jobs } = await client.request(query);
+  return jobs;
 }

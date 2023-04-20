@@ -1,10 +1,10 @@
-import cors from 'cors';
-import express from 'express';
-import { authMiddleware, handleLogin } from './auth.js';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware as apolloMiddleware } from '@apollo/server/express4';
+import cors from 'cors';
+import express from 'express';
 import { readFile } from 'node:fs/promises';
-import { resolvers } from './resolver.js';
+import { authMiddleware, handleLogin } from './auth.js';
+import { resolvers } from './resolvers.js';
 
 const PORT = 9000;
 
@@ -21,4 +21,5 @@ app.use('/graphql', apolloMiddleware(apolloServer));
 
 app.listen({ port: PORT }, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log(`GraphQL endpoint: http://localhost:${PORT}/graphql`);
 });
