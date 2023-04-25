@@ -4,7 +4,7 @@ import cors from 'cors';
 import express from 'express';
 import { readFile } from 'node:fs/promises';
 import { authMiddleware, handleLogin } from './auth.js';
-import { resolvers } from './resolvers.js';
+import { resolvers } from './resolver.js';
 
 const PORT = 9000;
 

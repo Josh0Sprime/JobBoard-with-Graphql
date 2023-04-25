@@ -1,10 +1,10 @@
-import { getJobs, getJob, getJobsByCompany } from './db/jobs.js';
+import { getJobs, getJob, getJobsByCompany, createJob } from './db/jobs.js';
 import { getCompany } from './db/companies.js';
 import { GraphQLError } from 'graphql';
 
 export const resolvers = {
     Query: {
-        trabajoPorId: async(_root, { id }) => {
+        job: async(_root, { id }) => {
             const job = await getJob(id);
             
             if(!job){
@@ -13,15 +13,22 @@ export const resolvers = {
             };
             return job;
         },
-        obtenerTrabajos: () => getJobs(),
-        companyPorId: async(_root, { id }) => {
+        jobs: () => getJobs(),
+        company: async(_root, { id }) => {
             const company = await getCompany(id);
-            
             if(!company){
                 errorHandler("Not company found by id" + id);
             };
 
             return company;
+        }
+    },
+
+    Mutation: {
+        createJob: (__root, { title, description }) => {
+            const companyId = 'FjcJCHJALA4i';
+            
+            return createJob({ companyId, title, description});
         }
     },
 
